@@ -14,6 +14,7 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     private let selectedCards = 0
     private var images : [UIImage] = []
     private let difficulty = 6;
+    private var flippedCards : [CardCollectionViewCell]  = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +46,29 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
         let cell = collectionView.cellForItem(at: indexPath as IndexPath) as! CardCollectionViewCell
         
         // don't do anything if this card has already been matched
-        if(cell.isMatched){
+        if(cell.isMatched || cell.isShown){
             return
         }
-        
-        cell.flipCard()
+        else {
+            cell.flipCard()
+            flippedCards.append(cell)
+            
+            if(flippedCards.count == 2){
+                let card1 = flippedCards[0] as CardCollectionViewCell
+                let card2 = flippedCards[1] as CardCollectionViewCell
+                
+                if(card1.cardImage == card2.cardImage){
+                    card1.isMatched = true
+                    card2.isMatched = true
+                }
+                else{
+                    card1.flipCard()
+                    card2.flipCard()
+                }
+                
+                flippedCards.removeAll()
+            }
+        }
     }
     
 
@@ -59,7 +78,8 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func loadImages() {
-        let randomPhotoUrl = "https://source.unsplash.com/collection/190727/100x100"
+        let imageIds = ["rW-I87aPY5Y", "l5truYNKmm8", "1l2waV8glIQ", "UPyadPLbCr8", "IbPxGLgJiMI", "zQrzlKQU2Ag", "dD75iU5UAU4"]
+        let randomPhotoUrl = "https://source.unsplash.com/\(imageIds[self.images.count/2])/100x100"
 
         // Create NSURL Ibject
         let myUrl = URL(string: randomPhotoUrl);
@@ -86,17 +106,18 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
                 // the collectionview cell images
                 self.images.append(image)
                 self.images.append(image)
-            }
-            
-            if(self.images.count == self.difficulty){
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                
+                if(self.images.count == self.difficulty){
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                }
+                else {
+                    self.loadImages()
                 }
             }
-            else {
-                self.loadImages()
-            }
         }
+        
         task.resume()
     }
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E0D1340216A428B00F30499 /* MemoryGameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0D133F216A428B00F30499 /* MemoryGameService.swift */; };
 		4EF6EB152168F4F500B8473D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6EB142168F4F500B8473D /* AppDelegate.swift */; };
 		4EF6EB172168F4F500B8473D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6EB162168F4F500B8473D /* ViewController.swift */; };
 		4EF6EB1A2168F4F500B8473D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EF6EB182168F4F500B8473D /* Main.storyboard */; };
@@ -37,7 +36,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4E0D133F216A428B00F30499 /* MemoryGameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameService.swift; sourceTree = "<group>"; };
 		4EF6EB112168F4F500B8473D /* MemoryGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EF6EB142168F4F500B8473D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EF6EB162168F4F500B8473D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,14 +78,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4E0D133E2169653B00F30499 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				4E0D133F216A428B00F30499 /* MemoryGameService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
 		4EF6EB082168F4F500B8473D = {
 			isa = PBXGroup;
 			children = (
@@ -111,7 +101,6 @@
 		4EF6EB132168F4F500B8473D /* MemoryGame */ = {
 			isa = PBXGroup;
 			children = (
-				4E0D133E2169653B00F30499 /* Service */,
 				4EF6EB442169186600B8473D /* View */,
 				4EF6EB142168F4F500B8473D /* AppDelegate.swift */,
 				4EF6EB162168F4F500B8473D /* ViewController.swift */,
@@ -285,7 +274,6 @@
 				4EF6EB432168FB4400B8473D /* GameViewController.swift in Sources */,
 				4EF6EB172168F4F500B8473D /* ViewController.swift in Sources */,
 				4EF6EB152168F4F500B8473D /* AppDelegate.swift in Sources */,
-				4E0D1340216A428B00F30499 /* MemoryGameService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

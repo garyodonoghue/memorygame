@@ -22,14 +22,14 @@ class CardCollectionViewCell: UICollectionViewCell {
         if(self.isShown){
             self.isShown = false;
             
-            UIView.transition(with: self, duration: 0.25, options: UIView.AnimationOptions.transitionFlipFromLeft, animations: {
+            UIView.transition(with: self, duration: 1, options: UIView.AnimationOptions.transitionFlipFromLeft, animations: {
                 self.currentCardView.image = self.backCardImage
             })
         }
         else {
             self.isShown = true;
             
-            UIView.transition(with: self, duration: 0.25, options: UIView.AnimationOptions.transitionFlipFromLeft, animations: {
+            UIView.transition(with: self, duration: 1, options: UIView.AnimationOptions.transitionFlipFromLeft, animations: {
                 self.currentCardView.image = self.cardImage
             })
         }
