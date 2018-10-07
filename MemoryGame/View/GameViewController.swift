@@ -11,15 +11,26 @@ import UIKit
 class GameViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     private let reuseIdentifier = "cardCell"
-    private let selectedCards = 0
     private var images : [UIImage] = []
     private let difficulty = 6;
-    private var flippedCards : [CardCollectionViewCell]  = []
+    private var gameTimer: Timer!
+    private var memoryGameViewModel : MemoryGameViewModel?
+    
+    @IBOutlet weak var timerView : UIView!
+    @IBOutlet weak var timeRemaining: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.delegate = self;
         loadImages();
+        
+        timerView.frame = CGRect(x: self.collectionView.bounds.width/3, y: 700, width: self.collectionView.frame.size.width, height: 50)
+        self.collectionView.addSubview(timerView)
+        
+        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        
+        self.memoryGameViewModel = MemoryGameViewModel(gameTimer: self.gameTimer)
     }
 
     // MARK: UICollectionViewDataSource
@@ -44,37 +55,19 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         let cell = collectionView.cellForItem(at: indexPath as IndexPath) as! CardCollectionViewCell
+        let gameFinished = memoryGameViewModel!.handleCardSelection(selectedCell: cell, difficulty: self.difficulty)
         
-        // don't do anything if this card has already been matched
-        if(cell.isMatched || cell.isShown){
-            return
-        }
-        else {
-            cell.flipCard()
-            flippedCards.append(cell)
+        // if the game is finished, present a modal popup and save the user score in Core Date
+        if(gameFinished){
+            self.memoryGameViewModel!.saveUserScore()
             
-            if(flippedCards.count == 2){
-                let card1 = flippedCards[0] as CardCollectionViewCell
-                let card2 = flippedCards[1] as CardCollectionViewCell
-                
-                if(card1.cardImage == card2.cardImage){
-                    card1.isMatched = true
-                    card2.isMatched = true
-                }
-                else{
-                    card1.flipCard()
-                    card2.flipCard()
-                }
-                
-                flippedCards.removeAll()
-            }
         }
     }
     
 
     // MARK: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.collectionView.bounds.width/3-20, height: 150);
+        return CGSize(width: self.collectionView.bounds.width/3-20, height: 100);
     }
     
     func loadImages() {
@@ -119,5 +112,9 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
         
         task.resume()
+    }
+    
+    @objc func updateTimer(){
+        self.timeRemaining.text = memoryGameViewModel!.updateTimer()
     }
 }
