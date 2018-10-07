@@ -12,12 +12,26 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var currentCardView: UIImageView!
     
-    // TODO When this is initialized, get one of the images retrieved from the service call and set this
-    // property
-    var cardImage = UIImage(named: "cat");
+    private let backCardImage = UIImage(named: "card")
+    var cardImage : UIImage = UIImage();
     
     var isShown: Bool = false
+    var isMatched: Bool = false;
     
-    
-    
+    func flipCard(){
+        if(self.isShown){
+            self.isShown = false;
+            
+            UIView.transition(with: self, duration: 0.25, options: UIView.AnimationOptions.transitionFlipFromLeft, animations: {
+                self.currentCardView.image = self.backCardImage
+            })
+        }
+        else {
+            self.isShown = true;
+            
+            UIView.transition(with: self, duration: 0.25, options: UIView.AnimationOptions.transitionFlipFromLeft, animations: {
+                self.currentCardView.image = self.cardImage
+            })
+        }
+    }
 }
