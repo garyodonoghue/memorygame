@@ -70,5 +70,7 @@ class MemoryGameViewModel {
     
     func saveUserScore(){
         // write user score to core data
+        let memoryGameService = MemoryGameService()
+        memoryGameService.saveUserScore(userScore: self.userScore)
     }
 }

@@ -59,8 +59,8 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         // if the game is finished, present a modal popup and save the user score in Core Date
         if(gameFinished){
+            // TODO Present view controller and ask user to input score
             self.memoryGameViewModel!.saveUserScore()
-            
         }
     }
     
