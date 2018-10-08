@@ -8,16 +8,24 @@
 
 import UIKit
 
+
+/// View controller used to allow the user to select the difficulty of the game
+/// The higher difficulty means a higher number of cards presented to the user
 class DifficultyViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     // MARK: - Navigation
 
+    
+    /// Used to set the 'difficulty' value on the GameViewController depending on the user's ≈
+    /// cardImage. This will determine the number of cards presented to the user.
+    ///
+    /// - Parameters:
+    ///   - segue: the segue used to transition to the next view
+    ///   - sender: the sender object 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "Low"){
             let easyGameViewController = segue.destination as? GameViewController

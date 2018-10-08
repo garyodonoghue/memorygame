@@ -9,17 +9,17 @@
 import UIKit
 
 
-/// ViewModel class used to abstract away some of the logic from the view
-class MemoryGameViewModel : NSObject {
+/// ViewModel class used to abstract away some of the logic from the view controller
+class MemoryGameViewModel {
 
     var gameOver : Bool = false
     var userScore = 0
     var gameTimer : Timer?
     var allImagesLoaded : Bool = false
+    var remainingTime : Int = 60
     
-    private var cardsFlippedInThisTurn : [CardCollectionViewCell]  = []
+    private var cardsFlippedInThisTurn : [MemoryGameCard]  = []
     private var matchedCards : Int = 0
-    private var remainingTime : Int = 60
     
     
     /// Handle the selectio of a card - if it is already flipped over, dont do anything
@@ -31,20 +31,20 @@ class MemoryGameViewModel : NSObject {
     /// If all cards have been flipped over, the game is over and the user's score should be saved
     ///
     /// - Parameters:
-    ///   - selectedCell: the card the user selected
+    ///   - selectedCard: the card the user selected
     ///   - difficulty: the number of cards on the screen
     /// - Returns: true if all cards have been flipped over, i.e. the user has matched all the cards
-    func handleCardSelection(selectedCell: CardCollectionViewCell, difficulty: Int) -> Bool{
+    func handleCardSelection(selectedCard: MemoryGameCard, difficulty: Int) -> Bool{
         
         // Only care about the cards that aren't 'shown', i.e. face up
         // Also wait until all the card images have been loaded before handling selections
-        if(!selectedCell.isShown && self.allImagesLoaded){
-            selectedCell.flipCard()
-            cardsFlippedInThisTurn.append(selectedCell)
+        if(!selectedCard.isShown && self.allImagesLoaded){
+            selectedCard.flipCard()
+            cardsFlippedInThisTurn.append(selectedCard)
             
             if(cardsFlippedInThisTurn.count == 2){
-                let card1 = cardsFlippedInThisTurn[0] as CardCollectionViewCell
-                let card2 = cardsFlippedInThisTurn[1] as CardCollectionViewCell
+                let card1 = cardsFlippedInThisTurn[0] as MemoryGameCard
+                let card2 = cardsFlippedInThisTurn[1] as MemoryGameCard
                 
                 if(card1.cardImage == card2.cardImage){
                     card1.isMatched = true
@@ -76,10 +76,10 @@ class MemoryGameViewModel : NSObject {
     }
     
     
-    /// Update the remaining time the user has to complete the game
+    /// Decrement the remaining time the user has to complete the game
     ///
     /// - Returns: the new text value of the remaining time to be displayed to the user
-    func updateTimer() -> String {
+    func decrementTimer() -> String {
         self.remainingTime = self.remainingTime - 1
         let timerValue = "\(String(self.remainingTime))s"
         
@@ -95,7 +95,7 @@ class MemoryGameViewModel : NSObject {
     /// Save the user's score along with their entered username
     func saveUserScore(username: String){
         // write user score to core data
-        let memoryGameService = MemoryGameService()
+        let memoryGameService = MemoryGameDao()
         let saveSuccess = memoryGameService.saveUserScore(username: username, userScore: self.userScore)
         
         if(!saveSuccess){
@@ -108,7 +108,7 @@ class MemoryGameViewModel : NSObject {
     ///
     /// - Returns: Array containing objects of username and score values
     func retrieveUserScores() -> [Score]{
-        let memoryGameService = MemoryGameService()
+        let memoryGameService = MemoryGameDao()
         return memoryGameService.retrieveUserScores()
     }
 }

@@ -8,8 +8,7 @@
 
 import UIKit
 
-
-/// Model class used to store a username and score value
+/// Model class used to store a username and an associated score value
 class Score {
 
     var username : String?

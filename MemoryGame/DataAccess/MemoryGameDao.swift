@@ -1,5 +1,5 @@
 //
-//  MemoryGameService.swift
+//  MemoryGameDao.swift
 //  MemoryGame
 //
 //  Created by Gary O'Donoghue on 07/10/2018.
@@ -9,10 +9,11 @@
 import UIKit
 import CoreData
 
-
-/// Service class used to interact provide means of saving user score 
-class MemoryGameService {
-    
+/// DAO class used to provide a means of saving and retrieving user scores
+class MemoryGameDao {
+    private let usernameKey = "username"
+    private let scoreKey = "score"
+    private let userEntity = "UserScore"
     private var appDelegate : AppDelegate?
     private var context : NSManagedObjectContext?
     
@@ -30,11 +31,11 @@ class MemoryGameService {
     func saveUserScore(username: String, userScore: Int) -> Bool {
         var scoreSavedSuccessfully = true
         
-        let entity = NSEntityDescription.entity(forEntityName: "UserScore", in: context!)
+        let entity = NSEntityDescription.entity(forEntityName: userEntity, in: context!)
         let newUser = NSManagedObject(entity: entity!, insertInto: context)
         
-        newUser.setValue(username, forKey: "username")
-        newUser.setValue(userScore, forKey: "score")
+        newUser.setValue(username, forKey: usernameKey)
+        newUser.setValue(userScore, forKey: scoreKey)
         
         do {
             try self.context!.save()
@@ -51,13 +52,13 @@ class MemoryGameService {
     func retrieveUserScores() -> [Score]{
         var userScores : [Score] = []
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserScore")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: userEntity)
         request.returnsObjectsAsFaults = false
         
         do {
             let result = try context!.fetch(request)
             for data in result as! [NSManagedObject] {
-                let score = Score(username: data.value(forKey: "username") as! String, score: data.value(forKey: "score") as! Int)
+                let score = Score(username: data.value(forKey: usernameKey) as! String, score: data.value(forKey: scoreKey) as! Int)
                 userScores.append(score)
             }
         } catch {

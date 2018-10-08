@@ -32,7 +32,7 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
         timerView.frame = CGRect(x: self.collectionView.bounds.width/3, y: 700, width: self.collectionView.frame.size.width, height: 50)
         self.collectionView.addSubview(timerView)
         
-        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(decrementTimer), userInfo: nil, repeats: true)
         
         self.memoryGameViewModel = MemoryGameViewModel()
         self.memoryGameViewModel!.gameTimer = self.gameTimer
@@ -50,20 +50,20 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CardCollectionViewCell
+        let card = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MemoryGameCard
         
         // dont assign the images yet as they havent finished loading
         if let randomImage = self.images.randomElement(){
-            cell.cardImage = randomImage
+            card.cardImage = randomImage
             images.remove(at: self.images.firstIndex(of: randomImage)!)
         }
-        return cell
+        return card
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
-        let cell = collectionView.cellForItem(at: indexPath as IndexPath) as! CardCollectionViewCell
-        let gameFinished = memoryGameViewModel!.handleCardSelection(selectedCell: cell, difficulty: self.difficulty!)
+        let card = collectionView.cellForItem(at: indexPath as IndexPath) as! MemoryGameCard
+        let gameFinished = memoryGameViewModel!.handleCardSelection(selectedCard: card, difficulty: self.difficulty!)
         
         // if the game is finished, present a modal popup and save the user score in Core Date
         if(gameFinished){
@@ -130,8 +130,8 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     /// Update the timer label - view model is responsible for returning updated value to be
     /// displayed
-    @objc func updateTimer(){
-        self.timeRemaining.text = memoryGameViewModel!.updateTimer()
+    @objc func decrementTimer(){
+        self.timeRemaining.text = memoryGameViewModel!.decrementTimer()
         if(memoryGameViewModel!.gameOver){
             self.finishGame()
         }

@@ -1,5 +1,5 @@
 //
-//  CardCollectionViewCell.swift
+//  MemoryGameCard.swift
 //  MemoryGame
 //
 //  Created by Gary O'Donoghue on 06/10/2018.
@@ -8,7 +8,9 @@
 
 import UIKit
 
-class CardCollectionViewCell: UICollectionViewCell {
+/// Custom collection view cell used for displaying a card with a front and back image, which
+/// can be 'flipped over' to reveal the cardImage
+class MemoryGameCard: UICollectionViewCell {
     
     @IBOutlet weak var currentCardView: UIImageView!
     
@@ -30,7 +32,7 @@ class CardCollectionViewCell: UICollectionViewCell {
             self.isShown = true;
             
             UIView.transition(with: self, duration: 1, options: UIView.AnimationOptions.transitionFlipFromLeft, animations: {
-                self.currentCardView.image = self.cardImage
+                self.currentCardView?.image = self.cardImage
             })
         }
     }
