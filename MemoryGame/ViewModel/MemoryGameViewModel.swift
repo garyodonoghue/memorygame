@@ -10,13 +10,13 @@ import UIKit
 
 class MemoryGameViewModel {
 
-    var gameOver : Bool = false;
+    var gameOver : Bool = false
+    var userScore = 0
     
     private var flippedCards : [CardCollectionViewCell]  = []
-    private var matchedCards : Int = 0;
-    private var userScore = 0;
+    private var matchedCards : Int = 0
     private var remainingTime : Int = 10
-    private var gameTimer : Timer;
+    private var gameTimer : Timer
 
     init(gameTimer : Timer) {
         self.gameTimer = gameTimer
@@ -87,7 +87,6 @@ class MemoryGameViewModel {
         
         return timerText
     }
-    
     
     /// Save the user's score along with their entered username
     func saveUserScore(username: String){

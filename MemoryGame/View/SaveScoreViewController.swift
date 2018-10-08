@@ -16,8 +16,14 @@ class SaveScoreViewController: UIViewController {
     @IBOutlet weak var username : UITextField!
     @IBOutlet weak var saveBtn : UIButton!
     @IBOutlet weak var addUsernameMessage : UILabel!
+    @IBOutlet weak var userScore : UILabel!
     
+    public var userScoreValue : Int = 0
     public var memoryGameViewModel: MemoryGameViewModel?
+    
+    override func viewDidLoad() {
+        self.userScore.text = String(self.userScoreValue)
+    }
     
     /// Save button was clicked, check if the user entered a username and if so, save their score
     @IBAction func saveBtnClicked(){
@@ -26,6 +32,8 @@ class SaveScoreViewController: UIViewController {
         }
         else {
             self.memoryGameViewModel!.saveUserScore(username: self.username.text!)
+            self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+            NotificationCenter.default.post(name: Notification.Name("ReturnToMainMenu"), object: nil)
         }
     }
 }

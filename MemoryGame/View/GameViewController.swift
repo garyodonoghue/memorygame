@@ -30,8 +30,10 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
         self.memoryGameViewModel = MemoryGameViewModel(gameTimer: self.gameTimer)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.returnToMainMenu), name: Notification.Name("ReturnToMainMenu"), object: nil)
     }
-
+    
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -126,7 +128,12 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     /// The game is over, present a save score view to the user
     func finishGame(){
         let saveScoreViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SaveScoreViewController") as! SaveScoreViewController
-        saveScoreViewController.memoryGameViewModel = self.memoryGameViewModel
+        saveScoreViewController.memoryGameViewModel = self.memoryGameViewModel!
+        saveScoreViewController.userScoreValue = self.memoryGameViewModel!.userScore
         self.present(saveScoreViewController, animated: true, completion: nil)
+    }
+    
+    @objc func returnToMainMenu(){
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
