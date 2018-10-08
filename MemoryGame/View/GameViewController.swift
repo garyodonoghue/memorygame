@@ -9,7 +9,6 @@
 import UIKit
 
 class GameViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
     private let reuseIdentifier = "cardCell"
     private var images : [UIImage] = []
     private let difficulty = 6;
@@ -59,8 +58,7 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         // if the game is finished, present a modal popup and save the user score in Core Date
         if(gameFinished){
-            // TODO Present view controller and ask user to input score
-            self.memoryGameViewModel!.saveUserScore()
+            self.finishGame()
         }
     }
     
@@ -69,6 +67,7 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.collectionView.bounds.width/3-20, height: 100);
     }
+    
     
     func loadImages() {
         let imageIds = ["rW-I87aPY5Y", "l5truYNKmm8", "1l2waV8glIQ", "UPyadPLbCr8", "IbPxGLgJiMI", "zQrzlKQU2Ag", "dD75iU5UAU4"]
@@ -114,7 +113,20 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
         task.resume()
     }
     
+    
+    /// Update the timer label - view model is responsible for returning updated value to be
+    /// displayed
     @objc func updateTimer(){
         self.timeRemaining.text = memoryGameViewModel!.updateTimer()
+        if(memoryGameViewModel!.gameOver){
+            self.finishGame()
+        }
+    }
+    
+    /// The game is over, present a save score view to the user
+    func finishGame(){
+        let saveScoreViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SaveScoreViewController") as! SaveScoreViewController
+        saveScoreViewController.memoryGameViewModel = self.memoryGameViewModel
+        self.present(saveScoreViewController, animated: true, completion: nil)
     }
 }
