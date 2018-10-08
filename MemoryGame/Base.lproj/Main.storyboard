@@ -41,7 +41,7 @@
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="cA4-Iw-291" kind="show" id="ZA6-Y9-pko"/>
+                                    <segue destination="ITw-X0-7eD" kind="show" id="apT-KK-zTx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -114,6 +114,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="flA-jL-HxU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3671" y="-188"/>
+        </scene>
+        <!--High Scores-->
+        <scene sceneID="lnr-su-fM6">
+            <objects>
+                <tableViewController title="High Scores" id="ITw-X0-7eD" customClass="HighScoresTableViewController" customModule="MemoryGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xkh-9U-71z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserScore" id="dfG-7t-4Hg">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dfG-7t-4Hg" id="9dh-pJ-egQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ITw-X0-7eD" id="SDZ-0a-u9K"/>
+                            <outlet property="delegate" destination="ITw-X0-7eD" id="yWQ-7Y-iSC"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="anu-dy-Co8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3654" y="493"/>
         </scene>
         <!--Memory Game-->
         <scene sceneID="6QR-hc-KQ9">
@@ -305,22 +333,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZOQ-hD-cT3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5272.8000000000002" y="-189.3553223388306"/>
-        </scene>
-        <!--High Scores-->
-        <scene sceneID="dxv-7W-POe">
-            <objects>
-                <viewController title="High Scores" id="cA4-Iw-291" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="y6B-WG-Ueh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="XSm-VK-5WA"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="High Scores" id="g4R-H3-Lfw"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7w3-Dd-lH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3670" y="480"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Sb1-5s-h4f">

@@ -8,6 +8,9 @@
 
 import UIKit
 
+/// View Controller used for displaying a collection view containing a number of 'cards', which the
+/// user can select and turn over to reveal their image. The aim is to match the images on the cards
+/// before the timer runs out
 class GameViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     private let reuseIdentifier = "cardCell"
     private var images : [UIImage] = []
@@ -29,7 +32,8 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
-        self.memoryGameViewModel = MemoryGameViewModel(gameTimer: self.gameTimer)
+        self.memoryGameViewModel = MemoryGameViewModel()
+        self.memoryGameViewModel!.gameTimer = self.gameTimer
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.returnToMainMenu), name: Notification.Name("ReturnToMainMenu"), object: nil)
     }
@@ -133,6 +137,7 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.present(saveScoreViewController, animated: true, completion: nil)
     }
     
+    /// Return the user to the main menu, pop all view controllers in the stack
     @objc func returnToMainMenu(){
         self.navigationController?.popToRootViewController(animated: true)
     }

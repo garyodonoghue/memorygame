@@ -26,11 +26,44 @@ class MemoryGameService {
     /// - Parameters:
     ///   - username: the name entered by the user on saving of their score
     ///   - userScore: the score the user got in the game
-    func saveUserScore(username: String, userScore: Int){
+    /// - Returns: whether the score was saved to CoreData successfully or not
+    func saveUserScore(username: String, userScore: Int) -> Bool {
+        var scoreSavedSuccessfully = true
+        
         let entity = NSEntityDescription.entity(forEntityName: "UserScore", in: context!)
         let newUser = NSManagedObject(entity: entity!, insertInto: context)
         
         newUser.setValue(username, forKey: "username")
         newUser.setValue(userScore, forKey: "score")
+        
+        do {
+            try self.context!.save()
+        } catch {
+            scoreSavedSuccessfully = false
+        }
+        
+        return scoreSavedSuccessfully
+    }
+    
+    /// Retrieve a list of user scores
+    ///
+    /// - Returns: array of Score objects containing username and score values
+    func retrieveUserScores() -> [Score]{
+        var userScores : [Score] = []
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserScore")
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let result = try context!.fetch(request)
+            for data in result as! [NSManagedObject] {
+                let score = Score(username: data.value(forKey: "username") as! String, score: data.value(forKey: "score") as! Int)
+                userScores.append(score)
+            }
+        } catch {
+            print("Failed to retrieve user scores")
+        }
+        
+        return userScores
     }
 }

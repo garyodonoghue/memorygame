@@ -8,19 +8,15 @@
 
 import UIKit
 
-class MemoryGameViewModel {
+class MemoryGameViewModel : NSObject {
 
     var gameOver : Bool = false
     var userScore = 0
+    var gameTimer : Timer?
     
     private var flippedCards : [CardCollectionViewCell]  = []
     private var matchedCards : Int = 0
     private var remainingTime : Int = 10
-    private var gameTimer : Timer
-
-    init(gameTimer : Timer) {
-        self.gameTimer = gameTimer
-    }
     
     
     /// Handle the selectio of a card - if it is already flipped over, dont do anything
@@ -62,7 +58,7 @@ class MemoryGameViewModel {
                 // all the cards have been matched, stop the timer and save the score
                 if(self.matchedCards == difficulty){
                     self.userScore = self.userScore + 5
-                    self.gameTimer.invalidate()
+                    self.gameTimer?.invalidate()
                     gameOver = true
                 }
             }
@@ -81,7 +77,7 @@ class MemoryGameViewModel {
         
         /// if the timer reaches zero, the game is over and the user's score is saved
         if(self.remainingTime <= 0){
-            self.gameTimer.invalidate()
+            self.gameTimer?.invalidate()
             self.gameOver = true;
         }
         
@@ -92,6 +88,19 @@ class MemoryGameViewModel {
     func saveUserScore(username: String){
         // write user score to core data
         let memoryGameService = MemoryGameService()
-        memoryGameService.saveUserScore(username: username, userScore: self.userScore)
+        let saveSuccess = memoryGameService.saveUserScore(username: username, userScore: self.userScore)
+        
+        if(!saveSuccess){
+            print("An error occurred saving user score")
+        }
+    }
+    
+    
+    /// Return a list of user's scores
+    ///
+    /// - Returns: Array containing objects of username and score values
+    func retrieveUserScores() -> [Score]{
+        let memoryGameService = MemoryGameService()
+        return memoryGameService.retrieveUserScores()
     }
 }
