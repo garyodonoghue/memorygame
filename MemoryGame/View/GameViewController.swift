@@ -52,7 +52,7 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let card = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MemoryGameCard
         
-        // dont assign the images yet as they havent finished loading
+        // Assign the images for each of the cards
         if let randomImage = self.images.randomElement(){
             card.cardImage = randomImage
             images.remove(at: self.images.firstIndex(of: randomImage)!)
@@ -65,7 +65,6 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
         let card = collectionView.cellForItem(at: indexPath as IndexPath) as! MemoryGameCard
         let gameFinished = memoryGameViewModel!.handleCardSelection(selectedCard: card, difficulty: self.difficulty!)
         
-        // if the game is finished, present a modal popup and save the user score in Core Date
         if(gameFinished){
             self.finishGame()
         }
@@ -106,14 +105,13 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
             
             // Convert response to image
             if let image = UIImage(data: data!) {
-                // append same image twice so that we can assign matching images when initializing
-                // the collectionview cell images
+                // append same image twice so that matching cards are assigned to all cards
                 self.images.append(image)
                 self.images.append(image)
                 
                 if(self.images.count == self.difficulty){
                     DispatchQueue.main.async {
-                        self.memoryGameViewModel!.allImagesLoaded = true
+                        self.memoryGameViewModel?.allImagesLoaded = true
                         self.loadingIndicator.stopAnimating()
                         self.collectionView.reloadData()
                     }
@@ -131,7 +129,7 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     /// Update the timer label - view model is responsible for returning updated value to be
     /// displayed
     @objc func decrementTimer(){
-        self.timeRemaining.text = memoryGameViewModel!.decrementTimer()
+        self.timeRemaining.text = memoryGameViewModel?.decrementTimer()
         if(memoryGameViewModel!.gameOver){
             self.finishGame()
         }

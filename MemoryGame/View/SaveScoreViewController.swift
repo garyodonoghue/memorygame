@@ -31,8 +31,8 @@ class SaveScoreViewController: UIViewController {
             self.addUsernameMessage.isHidden = false;
         }
         else {
-            self.memoryGameViewModel!.saveUserScore(username: self.username.text!)
-            self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+            self.memoryGameViewModel?.saveUserScore(username: self.username.text!)
+            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
             NotificationCenter.default.post(name: Notification.Name("ReturnToMainMenu"), object: nil)
         }
     }

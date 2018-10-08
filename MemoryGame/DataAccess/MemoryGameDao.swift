@@ -19,7 +19,7 @@ class MemoryGameDao {
     
     init(){
         appDelegate = UIApplication.shared.delegate as? AppDelegate
-        context = appDelegate!.persistentContainer.viewContext
+        context = appDelegate?.persistentContainer.viewContext
     }
     
     /// Save the user score to Core Data, to be retrieved and displayed in the list of high score
@@ -38,7 +38,7 @@ class MemoryGameDao {
         newUser.setValue(userScore, forKey: scoreKey)
         
         do {
-            try self.context!.save()
+            try self.context?.save()
         } catch {
             scoreSavedSuccessfully = false
         }
@@ -56,7 +56,7 @@ class MemoryGameDao {
         request.returnsObjectsAsFaults = false
         
         do {
-            let result = try context!.fetch(request)
+            let result = try context?.fetch(request)
             for data in result as! [NSManagedObject] {
                 let score = Score(username: data.value(forKey: usernameKey) as! String, score: data.value(forKey: scoreKey) as! Int)
                 userScores.append(score)

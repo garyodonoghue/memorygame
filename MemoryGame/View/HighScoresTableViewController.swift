@@ -41,8 +41,8 @@ class HighScoresTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserScore", for: indexPath)
         if(self.userScores!.count >= indexPath.row){
             let userScore = self.userScores![indexPath.row]
-            cell.textLabel!.text = "\(userScore.username!) : \(userScore.score!) point(s)"
-            cell.textLabel!.textAlignment = NSTextAlignment.center
+            cell.textLabel?.text = "\(userScore.username!) : \(userScore.score!) point(s)"
+            cell.textLabel?.textAlignment = NSTextAlignment.center
         }
         
         return cell
