@@ -12,15 +12,17 @@ import UIKit
 /// user can select and turn over to reveal their image. The aim is to match the images on the cards
 /// before the timer runs out
 class GameViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    public var difficulty : Int?
+    
     private let reuseIdentifier = "cardCell"
     private var images : [UIImage] = []
-    private let difficulty = 6;
     private var gameTimer: Timer!
     private var memoryGameViewModel : MemoryGameViewModel?
     
     @IBOutlet weak var timerView : UIView!
     @IBOutlet weak var timeRemaining: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +46,7 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return difficulty;
+        return difficulty!;
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -59,8 +61,9 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        
         let cell = collectionView.cellForItem(at: indexPath as IndexPath) as! CardCollectionViewCell
-        let gameFinished = memoryGameViewModel!.handleCardSelection(selectedCell: cell, difficulty: self.difficulty)
+        let gameFinished = memoryGameViewModel!.handleCardSelection(selectedCell: cell, difficulty: self.difficulty!)
         
         // if the game is finished, present a modal popup and save the user score in Core Date
         if(gameFinished){
@@ -75,8 +78,11 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     
+    /// Make a series of calls to the Unsplash API using pre-defined image ids
+    /// keep loading images until the number of images retrived = difficulty/2 (where difficulty is
+    /// the overall number of cards in the game)
     func loadImages() {
-        let imageIds = ["rW-I87aPY5Y", "l5truYNKmm8", "1l2waV8glIQ", "UPyadPLbCr8", "IbPxGLgJiMI", "zQrzlKQU2Ag", "dD75iU5UAU4"]
+        let imageIds = ["rW-I87aPY5Y", "l5truYNKmm8", "1l2waV8glIQ", "UPyadPLbCr8", "IbPxGLgJiMI", "zQrzlKQU2Ag", "dD75iU5UAU4", "Hd7vwFzZpH0", "0FQneB1VjaM"]
         let randomPhotoUrl = "https://source.unsplash.com/\(imageIds[self.images.count/2])/100x100"
 
         // Create NSURL Ibject
@@ -107,6 +113,8 @@ class GameViewController: UICollectionViewController, UICollectionViewDelegateFl
                 
                 if(self.images.count == self.difficulty){
                     DispatchQueue.main.async {
+                        self.memoryGameViewModel!.allImagesLoaded = true
+                        self.loadingIndicator.stopAnimating()
                         self.collectionView.reloadData()
                     }
                 }

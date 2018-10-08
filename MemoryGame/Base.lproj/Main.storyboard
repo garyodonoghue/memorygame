@@ -12,7 +12,7 @@
         <!--Main Menu-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Main Menu" id="BYZ-38-t0r" customClass="ViewController" customModule="MemoryGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Main Menu" id="BYZ-38-t0r" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -20,22 +20,15 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOV-Eq-FwR">
                                 <rect key="frame" x="101" y="167" width="173" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="New Solo Game">
+                                <state key="normal" title="New Game">
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="H0M-Gd-Ah8" kind="show" id="2GI-OO-b79"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FWy-pY-UIT">
-                                <rect key="frame" x="88" y="245" width="198" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="New Versus Game">
-                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6B-Xt-JEf">
-                                <rect key="frame" x="92" y="323" width="191" height="42"/>
+                                <rect key="frame" x="92" y="261" width="191" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="View Highscores">
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -47,17 +40,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="FWy-pY-UIT" firstAttribute="top" secondItem="cOV-Eq-FwR" secondAttribute="bottom" constant="36" id="5zX-b2-wuW"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="i6B-Xt-JEf" secondAttribute="bottom" constant="302" id="9RZ-iN-Bx5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="i6B-Xt-JEf" secondAttribute="bottom" constant="364" id="9RZ-iN-Bx5"/>
                             <constraint firstItem="cOV-Eq-FwR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="101" id="AQh-gS-pN7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="i6B-Xt-JEf" secondAttribute="trailing" constant="92" id="AZa-Iu-Fp1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cOV-Eq-FwR" secondAttribute="trailing" constant="101" id="Cm0-po-jvs"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FWy-pY-UIT" secondAttribute="trailing" constant="89" id="DUM-vJ-WB1"/>
-                            <constraint firstItem="i6B-Xt-JEf" firstAttribute="top" secondItem="FWy-pY-UIT" secondAttribute="bottom" constant="36" id="QFO-zh-det"/>
+                            <constraint firstItem="cOV-Eq-FwR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="103" id="P84-FQ-I1y"/>
                             <constraint firstItem="i6B-Xt-JEf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="92" id="UsV-N7-4tC"/>
-                            <constraint firstItem="FWy-pY-UIT" firstAttribute="top" secondItem="cOV-Eq-FwR" secondAttribute="bottom" constant="36" id="gcT-mG-DPg"/>
-                            <constraint firstItem="i6B-Xt-JEf" firstAttribute="top" secondItem="FWy-pY-UIT" secondAttribute="bottom" constant="36" id="hHj-Nk-sWl"/>
-                            <constraint firstItem="FWy-pY-UIT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="88" id="u9C-wv-pps"/>
+                            <constraint firstItem="i6B-Xt-JEf" firstAttribute="top" secondItem="cOV-Eq-FwR" secondAttribute="bottom" constant="52" id="m8f-Sy-2aZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -70,8 +59,8 @@
         <!--Choose Difficulty Level               -->
         <scene sceneID="E45-LO-LA4">
             <objects>
-                <viewController title="Choose Difficulty Level               " id="H0M-Gd-Ah8" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qoV-mr-8kL">
+                <viewController title="Choose Difficulty Level               " id="H0M-Gd-Ah8" customClass="DifficultyViewController" customModule="MemoryGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qoV-mr-8kL" customClass="D">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -80,18 +69,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Low"/>
                                 <connections>
-                                    <segue destination="Azu-N0-ZL5" kind="show" id="cU8-nu-qcM"/>
+                                    <segue destination="Azu-N0-ZL5" kind="show" identifier="Low" id="cU8-nu-qcM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vle-q9-pPz">
                                 <rect key="frame" x="143" y="224" width="88" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Medium"/>
+                                <connections>
+                                    <segue destination="Azu-N0-ZL5" kind="show" identifier="Medium" id="9q6-Cn-1cV"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZu-K8-NKZ">
                                 <rect key="frame" x="161" y="296" width="53" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Hard"/>
+                                <connections>
+                                    <segue destination="Azu-N0-ZL5" kind="show" identifier="Hard" id="iDc-Fg-NUu"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -157,6 +152,10 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="vEq-iM-c7t">
+                            <rect key="frame" x="0.0" y="-64" width="375" height="667"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="cardCell" id="26v-ca-jYC" customClass="CardCollectionViewCell" customModule="MemoryGame" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="50" height="50"/>
@@ -187,6 +186,7 @@
                     </collectionView>
                     <connections>
                         <outlet property="collectionView" destination="QDH-AP-Ulm" id="ac6-pR-Loh"/>
+                        <outlet property="loadingIndicator" destination="vEq-iM-c7t" id="leB-CS-yd9"/>
                         <outlet property="timeLabel" destination="llL-tG-Fzb" id="lnu-oZ-JLP"/>
                         <outlet property="timeRemaining" destination="GQU-QH-FQf" id="xZQ-xy-BXn"/>
                         <outlet property="timerView" destination="Vrm-SH-sZs" id="xna-7S-vqy"/>
@@ -356,4 +356,7 @@
     <resources>
         <image name="card" width="250" height="322"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="cU8-nu-qcM"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -13,6 +13,7 @@
 		4E1C6191216B713F009EBCA1 /* SaveScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C6190216B713F009EBCA1 /* SaveScoreViewController.swift */; };
 		4E1C6193216B8810009EBCA1 /* HighScoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C6192216B8810009EBCA1 /* HighScoresTableViewController.swift */; };
 		4E1C6196216B8BE7009EBCA1 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C6195216B8BE7009EBCA1 /* Score.swift */; };
+		4E1C6198216B9AAA009EBCA1 /* DifficultyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C6197216B9AAA009EBCA1 /* DifficultyViewController.swift */; };
 		4EF6EB152168F4F500B8473D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6EB142168F4F500B8473D /* AppDelegate.swift */; };
 		4EF6EB1A2168F4F500B8473D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EF6EB182168F4F500B8473D /* Main.storyboard */; };
 		4EF6EB1C2168F4F700B8473D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EF6EB1B2168F4F700B8473D /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		4E1C6190216B713F009EBCA1 /* SaveScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveScoreViewController.swift; sourceTree = "<group>"; };
 		4E1C6192216B8810009EBCA1 /* HighScoresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoresTableViewController.swift; sourceTree = "<group>"; };
 		4E1C6195216B8BE7009EBCA1 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		4E1C6197216B9AAA009EBCA1 /* DifficultyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyViewController.swift; sourceTree = "<group>"; };
 		4EF6EB112168F4F500B8473D /* MemoryGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EF6EB142168F4F500B8473D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EF6EB192168F4F500B8473D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				4EF6EB422168FB4400B8473D /* GameViewController.swift */,
 				4E1C6190216B713F009EBCA1 /* SaveScoreViewController.swift */,
 				4EF6EB45216918BD00B8473D /* CardCollectionViewCell.swift */,
+				4E1C6197216B9AAA009EBCA1 /* DifficultyViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				4E1C6168216AA203009EBCA1 /* MemoryGameViewModel.swift in Sources */,
 				4E1C618C216AAABA009EBCA1 /* MemoryGame.xcdatamodeld in Sources */,
 				4E1C6193216B8810009EBCA1 /* HighScoresTableViewController.swift in Sources */,
+				4E1C6198216B9AAA009EBCA1 /* DifficultyViewController.swift in Sources */,
 				4E1C618F216AB18C009EBCA1 /* MemoryGameService.swift in Sources */,
 				4E1C6191216B713F009EBCA1 /* SaveScoreViewController.swift in Sources */,
 				4EF6EB152168F4F500B8473D /* AppDelegate.swift in Sources */,

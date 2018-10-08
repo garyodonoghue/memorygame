@@ -8,15 +8,18 @@
 
 import UIKit
 
+
+/// ViewModel class used to abstract away some of the logic from the view
 class MemoryGameViewModel : NSObject {
 
     var gameOver : Bool = false
     var userScore = 0
     var gameTimer : Timer?
+    var allImagesLoaded : Bool = false
     
-    private var flippedCards : [CardCollectionViewCell]  = []
+    private var cardsFlippedInThisTurn : [CardCollectionViewCell]  = []
     private var matchedCards : Int = 0
-    private var remainingTime : Int = 10
+    private var remainingTime : Int = 60
     
     
     /// Handle the selectio of a card - if it is already flipped over, dont do anything
@@ -33,14 +36,15 @@ class MemoryGameViewModel : NSObject {
     /// - Returns: true if all cards have been flipped over, i.e. the user has matched all the cards
     func handleCardSelection(selectedCell: CardCollectionViewCell, difficulty: Int) -> Bool{
         
-        // only care about the cards that aren't 'shown', i.e. face up
-        if(!selectedCell.isShown){
+        // Only care about the cards that aren't 'shown', i.e. face up
+        // Also wait until all the card images have been loaded before handling selections
+        if(!selectedCell.isShown && self.allImagesLoaded){
             selectedCell.flipCard()
-            flippedCards.append(selectedCell)
+            cardsFlippedInThisTurn.append(selectedCell)
             
-            if(flippedCards.count == 2){
-                let card1 = flippedCards[0] as CardCollectionViewCell
-                let card2 = flippedCards[1] as CardCollectionViewCell
+            if(cardsFlippedInThisTurn.count == 2){
+                let card1 = cardsFlippedInThisTurn[0] as CardCollectionViewCell
+                let card2 = cardsFlippedInThisTurn[1] as CardCollectionViewCell
                 
                 if(card1.cardImage == card2.cardImage){
                     card1.isMatched = true
@@ -49,11 +53,15 @@ class MemoryGameViewModel : NSObject {
                     self.userScore = self.userScore + 1;
                 }
                 else{
-                    card1.flipCard()
-                    card2.flipCard()
+                    // Delay flipping the cards back over so the user can see the second card's
+                    // image before both cards are flipped back again
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                        card1.flipCard()
+                        card2.flipCard()
+                    })
                 }
                 
-                flippedCards.removeAll()
+                cardsFlippedInThisTurn.removeAll()
                 
                 // all the cards have been matched, stop the timer and save the score
                 if(self.matchedCards == difficulty){
@@ -73,7 +81,7 @@ class MemoryGameViewModel : NSObject {
     /// - Returns: the new text value of the remaining time to be displayed to the user
     func updateTimer() -> String {
         self.remainingTime = self.remainingTime - 1
-        let timerText = "\(String(self.remainingTime))s"
+        let timerValue = "\(String(self.remainingTime))s"
         
         /// if the timer reaches zero, the game is over and the user's score is saved
         if(self.remainingTime <= 0){
@@ -81,7 +89,7 @@ class MemoryGameViewModel : NSObject {
             self.gameOver = true;
         }
         
-        return timerText
+        return timerValue
     }
     
     /// Save the user's score along with their entered username
